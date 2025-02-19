@@ -12,6 +12,10 @@
     - Vulnerable Linux VM ( Metasploitable 3, Ubuntu Server): To simulate servers and generate security logs.
     - Optional: Windows VM (Windows Server Evaluation): To add variety and practice with Windows-based logs
 
+<div align="center">
+<img src="sources/kali-purpledemo.png" alt="Kali Purple" width="600"/>
+</div>
+
 - Additionally this repository covers:
 
  ### 1. System Event & Management Tools 
