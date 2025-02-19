@@ -1,65 +1,108 @@
-# SOC Arquitecture & Infrastructure:
+# SOC Architecture & Infrastructure
 
-## NIST CSF Domains & Relevant Kali Purple Tools:
-
-
-
-Here's a mapping of the NIST CSF Identify, Protect, Detect, Respond, Recover domains to tool categories and example tools available in Kali Purple (this is not exhaustive, and tools often span multiple domains):
+## Network Topology
 
 <div align="center">
-<img src="sources/networksqueme1.png" alt="Network topology" width="600"/>
+<img src="sources/networksqueme1.png" alt="Network topology" width="800"/>
 </div>
 
-    IDENTIFY (ID): Develop an organizational understanding to manage cybersecurity risk to systems, assets, data, and capabilities.
-        Asset Management (ID.AM):
-            Tools for asset discovery: nmap, rustscan, masscan, amap (in Kali - network mappers, service detection)
-            Network documentation/mapping tools: zenmap (Nmap GUI), automapper (Kali - network topology mapping)
-        Vulnerability Management (ID.VM):
-            Vulnerability scanners: nessus, openvas (Greenbone Vulnerability Manager - pre-installed in some Kali versions), nikto (web vuln scanner), wpscan (WordPress scanner), nmap scripts for vulnerability detection.
-            Vulnerability data management (less direct tools in Kali, but output can be used): Consider integrating with dedicated vulnerability management platforms outside of Kali for a full workflow in a real SOC. Kali focuses more on the scanning part.
-        Risk Assessment (ID.RA):
-            Frameworks & methodologies (conceptual, less tool-driven in Kali): Understanding of frameworks like NIST CSF itself, MITRE ATT&amp;CK.
-            Configuration assessment/security auditing tools: lynis (security auditing and hardening recommendations - can inform risk), cve-search (Kali - CVE database search, useful in risk context).
-        Threat Intelligence (ID.TI):
-            Threat intelligence feeds/platforms (Kali doesn't directly host feeds, but can consume them): Integrate with external threat intelligence sources (e.g., MISP - Malware Information Sharing Platform, often used in SOCs, can be set up separately and integrated).
-            OSINT (Open Source Intelligence) tools in Kali: theharvester, metagoofil, recon-ng, spiderfoot (information gathering from public sources).
+## NIST CSF Domains & Kali Purple Tools Integration
 
-    PROTECT (PR): Develop and implement appropriate safeguards to ensure delivery of critical infrastructure services.
-        Identity Management and Access Control (PR.AC):
-            Password auditing/cracking tools (for testing strength, not direct protection tools): john, hashcat (password crackers - used to test password policies and strength).
-            Authentication testing tools (again, for testing, can inform protection): hydra, medusa (brute-force login testers).
-        Awareness and Training (PR.AT): Less tool-driven, more about processes and education. Kali is used for demonstrating vulnerabilities to raise awareness.
-        Data Security (PR.DS):
-            Encryption tools (not SOC-specific, but fundamental): gpg, openssl (encryption/decryption utilities in Kali).
-        Information Protection Processes and Procedures (PR.IP): Again, more process-driven, less direct tools in Kali. Relates to policies, procedures for data handling.
-        Protective Technology (PR.PT):
-            Firewall testing/configuration tools: nmap (firewall rule testing), iptables, nftables (command-line firewall management - can be used on target VMs to set up firewalls, and Kali to test).
-            Intrusion Prevention Systems (IPS) testing: Kali Purple includes Suricata and Zeek (IDS/NSM - can be used in detection, but rulesets can be configured for prevention in some scenarios - less direct IPS role in default Kali Purple setup, more detection focus).
-            Endpoint Security Testing (Evasion, Antivirus testing): Tools for testing antivirus evasion (Metasploit framework, custom payloads, though ethical use is crucial).
+This section maps the NIST Cybersecurity Framework (CSF) domains to specific tools available in Kali Purple that support SOC operations.
 
-    DETECT (DE): Develop and implement appropriate activities to identify the occurrence of a cybersecurity event.
-        Anomalies and Events Detection (DE.AE):
-            Intrusion Detection Systems (IDS): Suricata, Zeek (pre-installed in Kali Purple - for network intrusion detection and network security monitoring).
-            Log analysis tools: grep, awk, sed, scripting (Bash, Python) for parsing and analyzing logs (can be applied to logs collected from target VMs). ELK/Graylog (for more advanced log management, needs separate setup).
-        Security Continuous Monitoring (DE.CM):
-            Network monitoring tools: wireshark, tcpdump, tshark (packet capture and analysis). ntopng (network traffic monitoring).
-            *System monitoring (less directly within Kali Purple's pre-installed tools, but can use standard Linux monitoring tools if needed, or integrate with external monitoring systems).
-        Detection Processes (DE.DP): More about defining procedures and workflows for incident detection and alerting, less specific tools within Kali Purple itself for defining these procedures.
+### 1. IDENTIFY (ID)
+*Develop organizational understanding to manage cybersecurity risk to systems, assets, data, and capabilities.*
 
-    RESPOND (RS): Develop and implement appropriate activities to take action regarding a detected cybersecurity incident.
-        Response Planning (RS.RP): Process and procedure definition, less tool-specific in Kali Purple.   
+#### Asset Management (ID.AM)
+- **Network Discovery Tools**
+  - `nmap`, `rustscan`, `masscan`, `amap`
+- **Network Mapping**
+  - `zenmap` (Nmap GUI), `automapper`
 
-    Analysis (RS.AN):
-        Forensics tools: Autopsy (digital forensics platform - pre-installed in Kali Purple), bulk_extractor, strings, binwalk (forensic data extraction and analysis), Volatility (memory forensics - install separately if needed).
-        Malware analysis tools (some basic tools in Kali, more advanced analysis often requires separate VMs/sandboxes): radare2 (reverse engineering framework), strings, ltrace, strace.
-        Network forensics tools (Wireshark, tshark for deeper packet analysis).
-    Mitigation (RS.MI):
-        Tools for containment/isolation (less direct tools in Kali Purple for active mitigation of running systems, more focus on identifying mitigation steps based on analysis): Kali is more of an analysis platform than an active response platform in a live network. Mitigation often involves actions on other systems (firewalls, endpoint protection, etc.). Kali can be used to test mitigation effectiveness.
-        Scripting for automation of simple response actions (e.g., firewall rule updates, but this requires integration with other systems and is advanced).
-    Improvements (RS.IM): Process of post-incident review and improvement, less tool-driven.
+#### Vulnerability Management (ID.VM)
+- **Vulnerability Scanners**
+  - `nessus`, `openvas` (Greenbone Vulnerability Manager)
+  - `nikto` (web vulnerability scanner)
+  - `wpscan` (WordPress scanner)
+  - Nmap vulnerability detection scripts
 
-RECOVER (RC): Develop and implement appropriate activities to maintain plans for resilience and to restore capabilities or services that were impaired due to a cybersecurity incident.
+#### Risk Assessment (ID.RA)
+- **Frameworks & Methodologies**
+  - NIST CSF implementation
+  - MITRE ATT&CK framework integration
+- **Configuration Assessment**
+  - `lynis` (security auditing and hardening)
+  - `cve-search` (CVE database queries)
 
-    Recovery Planning (RC.RP): Process and procedure definition.
-    Improvements (RC.IM): Post-recovery improvements and lessons learned, process-focused.
-    Communications (RC.CO): Communication plans during and after recovery.
+#### Threat Intelligence (ID.TI)
+- **OSINT Tools**
+  - `theharvester`, `metagoofil`, `recon-ng`, `spiderfoot`
+- **External Integration**
+  - MISP (Malware Information Sharing Platform) connectivity
+
+### 2. PROTECT (PR)
+*Implement appropriate safeguards to ensure delivery of critical services.*
+
+#### Identity Management and Access Control (PR.AC)
+- **Authentication Testing**
+  - `john`, `hashcat` (password policy validation)
+  - `hydra`, `medusa` (authentication testing)
+
+#### Data Security (PR.DS)
+- **Encryption Utilities**
+  - `gpg`, `openssl`
+
+#### Protective Technology (PR.PT)
+- **Firewall Management**
+  - `nmap` (firewall testing)
+  - `iptables`, `nftables` (firewall configuration)
+- **Intrusion Prevention**
+  - `Suricata`, `Zeek` (configurable for prevention)
+- **Endpoint Security Testing**
+  - Metasploit framework (evasion testing)
+
+### 3. DETECT (DE)
+*Implement appropriate activities to identify cybersecurity events.*
+
+#### Anomalies and Events Detection (DE.AE)
+- **Intrusion Detection Systems**
+  - `Suricata`, `Zeek` (network monitoring)
+- **Log Analysis**
+  - Command-line utilities: `grep`, `awk`, `sed`
+  - Python/Bash scripting for log parsing
+  - ELK Stack/Graylog integration
+
+#### Security Continuous Monitoring (DE.CM)
+- **Network Monitoring**
+  - `wireshark`, `tcpdump`, `tshark`, `ntopng`
+- **System Monitoring**
+  - Standard Linux monitoring tools
+  - Integration with external monitoring platforms
+
+### 4. RESPOND (RS)
+*Develop appropriate activities to take action on detected incidents.*
+
+#### Analysis (RS.AN)
+- **Digital Forensics**
+  - `Autopsy`, `bulk_extractor`, `strings`, `binwalk`
+  - `Volatility` (memory forensics)
+- **Malware Analysis**
+  - `radare2`, `ltrace`, `strace`
+- **Network Forensics**
+  - `Wireshark`, `tshark` (packet analysis)
+
+#### Mitigation (RS.MI)
+- **Containment Strategy Testing**
+- **Response Automation**
+  - Custom scripting for response actions
+
+### 5. RECOVER (RC)
+*Implement activities to maintain resilience and restore impaired services.*
+
+- **Recovery Planning**  
+- **Improvement Processes**
+- **Communication Strategies**
+
+## Lab Environment
+
+This SOC lab leverages Kali Purple as the foundation for security operations, providing a comprehensive set of tools spanning the entire NIST CSF. The environment consists of segmented networks for monitoring, analysis, and testing, with proper isolation of vulnerable systems.
