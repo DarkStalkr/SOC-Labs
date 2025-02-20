@@ -3,7 +3,7 @@
 ## Network Topology
 
 <div align="center">
-<img src="sources/network1.png" alt="Network topology" width="800"/>
+<img src="../sources/network1.png" alt="Network topology" width="800"/>
 </div>
 
 ## NIST CSF Domains & Kali Purple Tools Integration
