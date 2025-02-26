@@ -1,4 +1,4 @@
-# <img src="https://gitlab.com/kalilinux/kali-purple/documentation/-/raw/main/pictures/kali-purple-icon.png" alt="Kali Purple Icon" width="30" style="vertical-align: middle; margin-right: 10px;"> Security Operations Center Lab
+# <img src="https://gitlab.com/kalilinux/kali-purple/documentation/-/raw/main/pictures/kali-purple-icon.png" alt="Kali Purple Icon" width="80" style="vertical-align: middle; margin-right: 10px;"> Security Operations Center Lab
 
 
 - In this repository you will find implentation, reports and testing of defensive security solutions:
